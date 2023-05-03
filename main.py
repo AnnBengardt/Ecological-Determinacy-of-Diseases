@@ -188,7 +188,7 @@ def ml_model():
             else:
                 loaded_model = pickle.load(open("data/models/model.pickle", "rb"))
                 data_dict = {"Возраст": int(age), "Пол": gender_enc[gender], "Район":distirct_enc[district]} | dict(eco.loc[district])
-                input_data = pd.DataFrame(data={{'Возраст': data_dict["Возраст"],
+                input_data = pd.DataFrame(data={'Возраст': data_dict["Возраст"],
                                          'Диоксид азота': data_dict["Диоксид азота"],
                                          'Диоксид серы': data_dict["Диоксид серы"],
                                          'Оксид азота': data_dict["Оксид азота"],
@@ -205,7 +205,7 @@ def ml_model():
                                          'Шум': data_dict["Шум"],
                                          'Соседство с лесными массивами': data_dict["Соседство с лесными массивами"],
                                          'Аэропорт': data_dict["Аэропорт"],
-                                         'Промзоны': data_dict["Промзоны"],}}, index=[0])
+                                         'Промзоны': data_dict["Промзоны"],}, index=[0])
                 res = list(loaded_model.predict_proba(input_data)[0][1:])
                 st.write(pd.DataFrame({
                     'Заболевание': list(disease_enc.keys())[1:],
