@@ -188,7 +188,24 @@ def ml_model():
             else:
                 loaded_model = pickle.load(open("data/models/model.pickle", "rb"))
                 data_dict = {"Возраст": int(age), "Пол": gender_enc[gender], "Район":distirct_enc[district]} | dict(eco.loc[district])
-                input_data = pd.DataFrame(data_dict, index=[0])
+                input_data = pd.DataFrame(data={{'Возраст': data_dict[age],
+                                         'Диоксид азота': data_dict["Диоксид азота"],
+                                         'Диоксид серы': data_dict["Диоксид серы"],
+                                         'Оксид азота': data_dict["Оксид азота"],
+                                         'Оксид углерода': data_dict["Оксид углерода"],
+                                         'Сероводород': data_dict["Сероводород"],
+                                         'Плотность населения': data_dict["Плотность населения"],
+                                         'Почва': data_dict["Почва"],
+                                         'Озеленение': data_dict["Озеленение"],
+                                         'Пол': data_dict["Пол"],
+                                         'Район': data_dict["Район"],
+                                         'Объекты негативного воздействия': data_dict["Объекты негативного воздействия"],
+                                         'Водоемы': data_dict["Водоемы"],
+                                         'Автомагистрали': data_dict["Автомагистрали"],
+                                         'Шум': data_dict["Шум"],
+                                         'Соседство с лесными массивами': data_dict["Соседство с лесными массивами"],
+                                         'Аэропорт': data_dict["Аэропорт"],
+                                         'Промзоны': data_dict["Промзоны"],}}, index=[0])
                 res = list(loaded_model.predict_proba(input_data)[0][1:])
                 st.write(pd.DataFrame({
                     'Заболевание': list(disease_enc.keys())[1:],
