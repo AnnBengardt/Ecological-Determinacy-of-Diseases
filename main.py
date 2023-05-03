@@ -191,7 +191,7 @@ def ml_model():
                 input_data = pd.DataFrame(data_dict, index=[0])
                 res = list(loaded_model.predict_proba(input_data)[0][1:])
                 st.write(pd.DataFrame({
-                    'Заболевание': disease_enc.keys()[1:],
+                    'Заболевание': list(disease_enc.keys())[1:],
                     'Предрасположенность в %': [str(round(i*100, 2)+"%") for i in res],
                 }))
 
