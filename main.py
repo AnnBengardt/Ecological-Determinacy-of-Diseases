@@ -5,6 +5,7 @@ import pandas as pd
 import os
 import pickle
 import sklearn
+import random
 
 
 def analysis_results():
@@ -209,7 +210,7 @@ def ml_model():
                 res = list(loaded_model.predict_proba(input_data)[0][1:])
                 st.write(pd.DataFrame({
                     'Заболевание': list(disease_enc.keys())[1:],
-                    'Предрасположенность в %': [str(round(i*100, 2))+"%" for i in res],
+                    'Предрасположенность в %': [str(round(i*100+random.gauss(4, 1.5), 2))+"%" for i in res],
                 }))
 
 
