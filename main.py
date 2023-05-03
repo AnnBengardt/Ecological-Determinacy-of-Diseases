@@ -188,7 +188,7 @@ def ml_model():
             else:
                 loaded_model = pickle.load(open("data/models/model.pickle", "rb"))
                 data_dict = {"Возраст": int(age), "Пол": gender_enc[gender], "Район":distirct_enc[district]} | dict(eco.loc[district])
-                input_data = pd.DataFrame(data={{'Возраст': data_dict[age],
+                input_data = pd.DataFrame(data={{'Возраст': data_dict["Возраст"],
                                          'Диоксид азота': data_dict["Диоксид азота"],
                                          'Диоксид серы': data_dict["Диоксид серы"],
                                          'Оксид азота': data_dict["Оксид азота"],
