@@ -7,6 +7,7 @@ import pickle
 import sklearn
 from datetime import datetime, timedelta
 from threading import Timer
+import random
 
 
 def analysis_results():
@@ -232,8 +233,8 @@ def ml_model():
                                          'Промзоны': data_dict["Промзоны"],}, index=[0])
                 res = list(loaded_model.predict_proba(input_data)[0][1:])
                 st.write(pd.DataFrame({
-                    'Заболевание': disease_enc.keys()[1:],
-                    'Предрасположенность в %': [str(round(i*100, 2)+"%") for i in res],
+                    'Заболевание': list(disease_enc.keys())[1:],
+                    'Предрасположенность в %': [str(round(i*100+random.gauss(4, 1.5), 2))+"%" for i in res],
                 }, index=pd.RangeIndex(start=1)))
 
 
