@@ -235,7 +235,7 @@ def ml_model():
                 st.write(pd.DataFrame({
                     'Заболевание': list(disease_enc.keys())[1:],
                     'Предрасположенность в %': [str(round(i*100+random.gauss(4, 1.5), 2))+"%" for i in res],
-                }, index=pd.RangeIndex(start=1, stop=5)))
+                }, index=pd.RangeIndex(start=1, stop=6)))
 
 
 def main():
