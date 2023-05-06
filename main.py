@@ -32,7 +32,7 @@ def ecorating():
 
     fig = px.scatter_mapbox(map_df, lat="latitude", lon="longtitude", hover_name='Район', color_discrete_sequence=[map_df.color],
                             zoom=10, hover_data = ["Балл"])
-
+    fig.update_traces(marker={'size': 15})
     fig.update_layout(mapbox_style="open-street-map")
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     st.plotly_chart(fig)
