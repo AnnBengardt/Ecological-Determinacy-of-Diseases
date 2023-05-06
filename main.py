@@ -30,7 +30,7 @@ def ecorating():
     
     map_df = pd.read_pickle("data/dataframes/ecorating_map.pickle")
 
-    fig = px.scatter_mapbox(map_df, lat="latitude", lon="longitude", hover_name='Район', color_discrete_sequence=[map_df.color],
+    fig = px.scatter_mapbox(map_df, lat="latitude", lon="longtitude", hover_name='Район', color_discrete_sequence=[map_df.color],
                             zoom=3, hover_data = ["Балл"])
 
     fig.update_layout(mapbox_style="open-street-map")
