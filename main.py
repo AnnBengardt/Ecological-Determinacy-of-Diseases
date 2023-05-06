@@ -26,7 +26,7 @@ def analysis_results():
         st.image("data/pics/chart5.png")
         st.write("•	Состояние почв на основе суммарного показателя загрязнения (https://data.mos.ru/opendata/2452)")
         st.image("data/pics/chart6.png")
-        st.write("•	Состояние почв на основе суммарного показателя загрязнения (https://data.mos.ru/opendata/2449)")
+        st.write("•	Результаты мониторинга уровней шума по данным передвижной экологической лаборатории (https://data.mos.ru/opendata/2449)")
         st.image("data/pics/chart7.png")
         st.write("•	Процент парков и лесов от территории района")
         st.image("data/pics/chart8.png")
