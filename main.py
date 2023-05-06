@@ -26,7 +26,15 @@ def ecorating():
     st.write("•	От 300 до 400 – неудовлетворительно (около 18% районов на данный момент);")
     st.write("•	От 400 и более – плохо (около 10% районов на данный момент).")
     st.write("---")
+    
+    map_df = pd.read_pickle("data/dataframes/ecorating_map.pickle")
 
+    fig = px.scatter_mapbox(map_df, lat="latitude", lon="longitude", hover_name='Район', color_discrete_sequence=[map_df.color],
+                            zoom=3, hover_data = ["Балл"])
+
+    fig.update_layout(mapbox_style="open-street-map")
+    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    st.plotly_chart(fig)
 
     ecorating_df = pd.read_pickle("data/dataframes/ecorating_df.pickle")
     st.write(ecorating_df)
