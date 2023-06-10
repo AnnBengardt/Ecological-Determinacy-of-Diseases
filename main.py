@@ -269,7 +269,7 @@ def ml_model():
             notChanged=False
         else:
             notChanged=True
-        submitted = st.form_submit_button("Отправить", disbaled=notChanged)
+        submitted = st.form_submit_button("Отправить", disabled=notChanged)
         if submitted:
             if district not in distirct_enc.keys():
                 st.error("Указанный район не найден, попробуйте ввести ещё раз и проверьте формат!")
