@@ -265,13 +265,14 @@ def ml_model():
         age = st.slider("Возраст", 14, 100)
         district = st.text_input("Район проживания в формате 'Академический', 'Арбат', 'Алексеевский' и т. д. (поселения в Новой Москве необходимо указывать в формате 'поселение N', для Троицка и Щербинки необходимо указать 'городской округ Троицк/Щербинка')")
         submitted = st.form_submit_button("Отправить")
+        key = str(distirct)+str(age)+str(gender)
         if submitted:
             if district not in distirct_enc.keys():
                 st.error("Указанный район не найден, попробуйте ввести ещё раз и проверьте формат!")
-            elif [district, age, gender] in res_dict.keys():
+            elif key in res_dict.keys():
                 st.write(pd.DataFrame({
                     'Заболевание': list(disease_enc.keys())[1:],
-                    'Предрасположенность в %': res_dict[[district, age, gender]],
+                    'Предрасположенность в %': res_dict[key],
                 }, index=pd.RangeIndex(start=1, stop=6)))
             else:
                 loaded_model = pickle.load(open("data/models/model.pickle", "rb"))
@@ -301,7 +302,7 @@ def ml_model():
                     'Предрасположенность в %': proba,
                 }, index=pd.RangeIndex(start=1, stop=6)))
                 
-                res_dict[[district, age, gender]] = proba
+                res_dict[key] = proba
 
 
 def main():
