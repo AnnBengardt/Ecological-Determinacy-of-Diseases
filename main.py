@@ -266,14 +266,8 @@ def ml_model():
         district = st.text_input("Район проживания в формате 'Академический', 'Арбат', 'Алексеевский' и т. д. (поселения в Новой Москве необходимо указывать в формате 'поселение N', для Троицка и Щербинки необходимо указать 'городской округ Троицк/Щербинка')")
         submitted = st.form_submit_button("Отправить")
         if submitted:
-            key = str(district)+str(age)+str(gender)
             if district not in distirct_enc.keys():
                 st.error("Указанный район не найден, попробуйте ввести ещё раз и проверьте формат!")
-            elif key in res_dict.keys():
-                st.write(pd.DataFrame({
-                    'Заболевание': list(disease_enc.keys())[1:],
-                    'Предрасположенность в %': res_dict[key],
-                }, index=pd.RangeIndex(start=1, stop=6)))
             else:
                 loaded_model = pickle.load(open("data/models/model.pickle", "rb"))
                 data_dict = {"Возраст": int(age), "Пол": gender_enc[gender], "Район":distirct_enc[district]} | dict(eco.loc[district])
@@ -296,13 +290,18 @@ def ml_model():
                                          'Аэропорт': data_dict["Аэропорт"],
                                          'Промзоны': data_dict["Промзоны"],}, index=[0])
                 res = list(loaded_model.predict_proba(input_data)[0][1:])
-                proba = [str(round(i*100+random.gauss(4, 1.5), 2))+"%" for i in res]
+                key = str(district)+str(age)+str(gender)
+                if key in res_dict.keys():
+                    proba = res_dict[key]
+                else:
+                    proba = [str(round(i*100+random.gauss(4, 1.5), 2))+"%" for i in res]
+                    res_dict[key] = proba
                 st.write(pd.DataFrame({
                     'Заболевание': list(disease_enc.keys())[1:],
                     'Предрасположенность в %': proba,
                 }, index=pd.RangeIndex(start=1, stop=6)))
                 
-                res_dict[key] = proba
+                
 
 
 def main():
