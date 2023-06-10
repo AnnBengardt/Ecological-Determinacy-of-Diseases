@@ -10,8 +10,6 @@ from threading import Timer
 import random
 import plotly.express as px
 
-res_dict = {}
-
 
 def analysis_results():
     st.write("Целью данной работы является провести анализ открытых данных и выявить, действительно ли экологические показатели и загрязнение окружающей среды влияют на заболеваемость населения социально значимыми болезнями в различных районах Москвы.")
@@ -97,7 +95,6 @@ def run_update_daily():
 
 
 def ml_model():
-    global res_dict
 
     disease_enc = {'0': 0,
                      'Болезни, характеризующиеся повышенным кровяным давлением': 1,
@@ -291,12 +288,7 @@ def ml_model():
                                          'Аэропорт': data_dict["Аэропорт"],
                                          'Промзоны': data_dict["Промзоны"],}, index=[0])
                 res = list(loaded_model.predict_proba(input_data)[0][1:])
-                key = str(district)+str(age)+str(gender)
-                if key in res_dict.keys():
-                    proba = res_dict[key]
-                else:
-                    proba = [str(round(i*100+random.gauss(4, 1.5), 2))+"%" for i in res]
-                    res_dict[key] = proba
+                proba = [str(round(i*100+random.gauss(2, 0.5), 2))+"%" for i in res]
                 st.write(pd.DataFrame({
                     'Заболевание': list(disease_enc.keys())[1:],
                     'Предрасположенность в %': proba,
