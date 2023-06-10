@@ -258,22 +258,22 @@ def ml_model():
                  "на какие аспекты Вашего здоровья может влиять экологическая обстановка Вашего места проживания и на что стоит обращать внимание при профилактике.")
     st.subheader("Заполните немного информации о себе, чтобы обратиться к модели:")
     old_district, old_age, old_gender = None, None, None
-    notChanged=False
+    st.session_state.disabled = False
     
     with st.form("my_form"):
         gender = st.selectbox("Пол", ["Мужской", "Женский"])
         age = st.slider("Возраст", 14, 100)
         district = st.text_input("Район проживания в формате 'Академический', 'Арбат', 'Алексеевский' и т. д. (поселения в Новой Москве необходимо указывать в формате 'поселение N', для Троицка и Щербинки необходимо указать 'городской округ Троицк/Щербинка')")
-        submitted = st.form_submit_button("Отправить", disabled=notChanged)
+        submitted = st.form_submit_button("Отправить", disabled=st.session_state.disabled)
         if submitted:
             if district not in distirct_enc.keys():
                 st.error("Указанный район не найден, попробуйте ввести ещё раз и проверьте формат!")
             else:
                 if old_district != district or old_age != age or old_gender != gender:
                     old_district, old_age, old_gender = district, age, gender
-                    notChanged=False
+                    st.session_state.disabled = False
                 else:
-                    notChanged=True
+                    st.session_state.disabled = True
                 loaded_model = pickle.load(open("data/models/model.pickle", "rb"))
                 data_dict = {"Возраст": int(age), "Пол": gender_enc[gender], "Район":distirct_enc[district]} | dict(eco.loc[district])
                 input_data = pd.DataFrame(data={'Возраст': data_dict["Возраст"],
