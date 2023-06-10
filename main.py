@@ -94,9 +94,7 @@ def run_update_daily():
     t.start()
 
 
-def ml_model():
-    
-    res_dict = {}
+def ml_model(res_dict):
 
     disease_enc = {'0': 0,
                      'Болезни, характеризующиеся повышенным кровяным давлением': 1,
@@ -301,10 +299,14 @@ def ml_model():
                     'Предрасположенность в %': proba,
                 }, index=pd.RangeIndex(start=1, stop=6)))
                 
+    return res_dict
+                
                 
 
 
 def main():
+    
+    res_dict = {}
 
     option = st.sidebar.radio("Меню", ['Результаты сбора и анализа данных', 'Предрасположенность к социально значимым заболеваниям на основе района проживания', 'Экорейтинг районов Москвы'])
 
@@ -314,7 +316,7 @@ def main():
     if option == "Результаты сбора и анализа данных":
         analysis_results()
     elif option == "Предрасположенность к социально значимым заболеваниям на основе района проживания":
-        ml_model()
+        res_dict = ml_model(res_dict)
     elif option == "Экорейтинг районов Москвы":
         ecorating()
 
