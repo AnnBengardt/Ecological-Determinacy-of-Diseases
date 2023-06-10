@@ -257,12 +257,19 @@ def ml_model():
                  "Предположительно экологически детерминированные заболевания могут возникать и от иных причин. Результаты данного моделирования могут подсказать, "+
                  "на какие аспекты Вашего здоровья может влиять экологическая обстановка Вашего места проживания и на что стоит обращать внимание при профилактике.")
     st.subheader("Заполните немного информации о себе, чтобы обратиться к модели:")
+    old_district, old_age, old_gender = None
+    notChanged=False
+    
     with st.form("my_form"):
         gender = st.selectbox("Пол", ["Мужской", "Женский"])
         age = st.slider("Возраст", 14, 100)
         district = st.text_input("Район проживания в формате 'Академический', 'Арбат', 'Алексеевский' и т. д. (поселения в Новой Москве необходимо указывать в формате 'поселение N', для Троицка и Щербинки необходимо указать 'городской округ Троицк/Щербинка')")
-
-        submitted = st.form_submit_button("Отправить")
+        if old_district != district or old_age != age or old_gender != gender:
+            old_district, old_age, old_gender = district, age, gender
+            notChanged=False
+        else:
+            notChanged=True
+        submitted = st.form_submit_button("Отправить", disbaled=notChanged)
         if submitted:
             if district not in distirct_enc.keys():
                 st.error("Указанный район не найден, попробуйте ввести ещё раз и проверьте формат!")
