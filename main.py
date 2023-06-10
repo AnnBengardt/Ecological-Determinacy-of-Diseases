@@ -265,8 +265,8 @@ def ml_model():
         age = st.slider("Возраст", 14, 100)
         district = st.text_input("Район проживания в формате 'Академический', 'Арбат', 'Алексеевский' и т. д. (поселения в Новой Москве необходимо указывать в формате 'поселение N', для Троицка и Щербинки необходимо указать 'городской округ Троицк/Щербинка')")
         submitted = st.form_submit_button("Отправить")
-        key = str(district)+str(age)+str(gender)
         if submitted:
+            key = str(district)+str(age)+str(gender)
             if district not in distirct_enc.keys():
                 st.error("Указанный район не найден, попробуйте ввести ещё раз и проверьте формат!")
             elif key in res_dict.keys():
