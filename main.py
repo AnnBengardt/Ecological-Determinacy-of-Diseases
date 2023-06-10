@@ -10,7 +10,7 @@ from threading import Timer
 import random
 import plotly.express as px
 
-global res_dict = {}
+res_dict = {}
 
 
 def analysis_results():
@@ -96,7 +96,8 @@ def run_update_daily():
     t.start()
 
 
-def ml_model(res_dict):
+def ml_model():
+    global res_dict
 
     disease_enc = {'0': 0,
                      'Болезни, характеризующиеся повышенным кровяным давлением': 1,
@@ -301,7 +302,6 @@ def ml_model(res_dict):
                     'Предрасположенность в %': proba,
                 }, index=pd.RangeIndex(start=1, stop=6)))
                 
-    return res_dict
                 
                 
 
@@ -316,7 +316,7 @@ def main():
     if option == "Результаты сбора и анализа данных":
         analysis_results()
     elif option == "Предрасположенность к социально значимым заболеваниям на основе района проживания":
-        res_dict = ml_model(res_dict)
+        ml_model()
     elif option == "Экорейтинг районов Москвы":
         ecorating()
 
