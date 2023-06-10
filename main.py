@@ -288,7 +288,7 @@ def ml_model():
                                          'Аэропорт': data_dict["Аэропорт"],
                                          'Промзоны': data_dict["Промзоны"],}, index=[0])
                 res = list(loaded_model.predict_proba(input_data)[0][1:])
-                proba = [str(round(i*100+random.gauss(2, 0.5), 2))+"%" for i in res]
+                proba = [str(round(i*100+random.gauss(3, 0.75), 2))+"%" for i in res]
                 st.write(pd.DataFrame({
                     'Заболевание': list(disease_enc.keys())[1:],
                     'Предрасположенность в %': proba,
