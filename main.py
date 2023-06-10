@@ -80,6 +80,11 @@ def ecorating():
     fig.update_traces(marker={'size': 15})
     fig.update_layout(mapbox_style="open-street-map")
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    fig.update_layout(legend = dict(bordercolor='rgb(100,100,100)',
+                                borderwidth=2,
+                                itemclick= 'toggleothers',
+                                x=0.91,
+                                y=1))
     st.plotly_chart(fig)
 
     ecorating_df = pd.read_pickle("data/dataframes/ecorating_df.pickle")
